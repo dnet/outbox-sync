@@ -1,0 +1,18 @@
+{
+    "accounts": {
+        "foo@domain.tld" : {
+            "host": "imap.domain.tld",
+            "ssl": true,
+            "user": "foo",
+            "password": "s3cr3t_pa$$w0rd",
+            "folder": "INBOX.Sent"
+        },
+        "another@domain.tld" : {
+            "host": "mail.domain.tld",
+            "ssl": false, /* can even be omitted */
+            "user": "another@domain.tld",
+            "password": "TrustNo1",
+            "folder": "INBOX.Other"
+        }
+    }
+}
