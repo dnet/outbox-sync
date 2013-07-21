@@ -29,7 +29,8 @@
 from __future__ import print_function, with_statement
 from contextlib import closing
 from email.utils import parsedate
-import mailbox, imaplib, os, sqlite3, json, hashlib
+from muttmbox import MuttMbox
+import imaplib, os, sqlite3, json, hashlib
 
 OBS_DIR = os.path.join(os.path.expanduser('~'), '.config', 'dnet', 'obs')
 HASH_ALGO = hashlib.sha256
@@ -44,7 +45,7 @@ class OutboxSyncer(object):
         try:
             with open_database() as db:
                 for mbox_filename in mbox_filenames:
-                    mbox = mailbox.mbox(mbox_filename)
+                    mbox = MuttMbox(mbox_filename)
                     self.process_mbox(mbox, db)
         finally:
             self.empty_connection_pool()
