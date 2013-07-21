@@ -41,10 +41,13 @@ class MuttMbox(mbox):
         last_start = None
         last_stop = None
         for _, (start, stop) in self._toc.iteritems():
-            self._file.seek(start)
+            pre_start = max(0, start - 256)
+            self._file.seek(pre_start)
+            pre_msg = self._file.read(start - pre_start)
             line = self._file.readline()
             if last_start is not None:
-                if FROM_RE.match(line):
+                if (FROM_RE.match(line) and
+                        ('Content-Type: message/rfc822' not in pre_msg)):
                     yield last_start, last_stop
                     last_start = start
             else:
